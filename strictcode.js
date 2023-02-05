@@ -1,31 +1,30 @@
 /**
  * Using strict mode to avoid arguments aliasing
  */
-
 function strictF(a) {
   'use strict'
-  arguments[0] = 1000;
-  console.log(a === 1000);
+  arguments[0] = 'Changed';
+  console.log(a === 'Changed');
 }
 
-function noStrictF(a) {
-  arguments[0] = 1000;
-  console.log(a === 1000);
+function notStrictF(a) {
+  arguments[0] = 'Changed';
+  console.log(a === 'Changed');
 }
 
-strictF(1); // false
-noStrictF(1); // true
+strictF('Hi'); // false
+notStrictF('H'); // true
 
 /**
  * Behavior of function context (the value of the this keyword) if invoke a function as function using strict mode and nonstrict mode
  */
-function ninja() {
+function toReturnNonstrictThis() {
   return this; // In nonstrict mode 'this' will be the global context (the window object)
 }
-ninja();
+toReturnNonstrictThis();
 
-let samurai = function() {
+function toReturnStrictThis() {
   'use strict'
   return this; // In strict mode 'this' will be undefined
 }
-samurai()
+toReturnStrictThis();
