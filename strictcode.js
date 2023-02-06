@@ -21,10 +21,25 @@ notStrictF('H'); // true
 function toReturnNonstrictThis() {
   return this; // In nonstrict mode 'this' will be the global context (the window object)
 }
-toReturnNonstrictThis();
 
 function toReturnStrictThis() {
   'use strict'
   return this; // In strict mode 'this' will be undefined
 }
+toReturnNonstrictThis();
 toReturnStrictThis();
+
+/**
+ * Behavior of var declaration
+ */
+function varWithoutDecl() {
+  'use strict'
+  globalsVar = 'Global'; //ReferenceError: globalVar is not defined
+}
+
+function varWithoutDecl2() {
+  globalsVar = 'Global';
+}
+
+varWithoutDecl();
+varWithoutDecl2();
