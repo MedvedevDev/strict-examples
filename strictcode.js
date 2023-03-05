@@ -2,14 +2,14 @@
  * Using strict mode to avoid arguments aliasing
  */
 function strictF(a) {
-  'use strict'
-  arguments[0] = 'Changed';
-  console.log(a === 'Changed');
+    'use strict'
+    arguments[0] = 'Changed';
+    console.log(a === 'Changed');
 }
 
 function notStrictF(a) {
-  arguments[0] = 'Changed';
-  console.log(a === 'Changed');
+    arguments[0] = 'Changed';
+    console.log(a === 'Changed');
 }
 
 strictF('Hi'); // false
@@ -19,13 +19,14 @@ notStrictF('H'); // true
  * Behavior of function context (the value of the this keyword) if invoke a function as function using strict mode and nonstrict mode
  */
 function toReturnNonstrictThis() {
-  return this; // In nonstrict mode 'this' will be the global context (the window object)
+    return this; // In nonstrict mode 'this' will be the global context (the window object)
 }
 
 function toReturnStrictThis() {
-  'use strict'
-  return this; // In strict mode 'this' will be undefined
+    'use strict'
+    return this; // In strict mode 'this' will be undefined
 }
+
 toReturnNonstrictThis();
 toReturnStrictThis();
 
@@ -33,13 +34,33 @@ toReturnStrictThis();
  * Behavior of var declaration
  */
 function varWithoutDecl() {
-  'use strict'
-  globalsVar = 'Global'; //ReferenceError: globalVar is not defined
+    'use strict'
+    //globalsVar = 'Global'; //ReferenceError: globalVar is not defined
 }
 
 function varWithoutDecl2() {
-  globalsVar = 'Global';
+    globalsVar = 'Global';
 }
 
 varWithoutDecl();
 varWithoutDecl2();
+
+/**
+ * Use Object.freeze for easy immutability
+ */
+const obj = {property: 'original property'}
+Object.freeze(obj)
+
+obj.property = 'edited property'
+
+console.log(obj.property); // Output: original property
+
+(() => {
+    "use strict";
+    try {
+        obj.prop = "new prop";
+    } catch (e) {
+        console.log("Error"); // throw an exception
+    }
+})()
+
